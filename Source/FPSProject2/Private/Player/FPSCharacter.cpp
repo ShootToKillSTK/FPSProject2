@@ -111,6 +111,9 @@ void AFPSCharacter::Fire()
 	FRotator CameraRotation;
 	GetActorEyesViewPoint(CameraLocation, CameraRotation);
 
+	// FIX FIRE ACCURACY
+	//FPSCameraComponent->
+
 	MuzzleOffset.Set(100.0f, 0.0f, 0.0f);
 
 	FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
