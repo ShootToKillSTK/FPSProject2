@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Widgets/SWeakWidget.h"
 #include "HUD/MyHUD.h"
+#include "Widgets/SWeakWidget.h"
 
 void AMyHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-	ShowSettingMenu();
+	ShowMenu(gameMenuWidget);
+	//ShowSettingMenu();
 }
 
 void AMyHUD::DrawHUD()

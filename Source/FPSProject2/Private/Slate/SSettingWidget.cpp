@@ -41,55 +41,56 @@ void SSettingWidget::Construct(const FArguments& InArgs)
 				[
 					// Title Text
 					SNew(SVerticalBox)
-						+ SVerticalBox::Slot()
+					+ SVerticalBox::Slot()
+					[
+						SNew(STextBlock)
+						.Font(TitleTextStyle)
+						.Text(TitleText)
+						.Justification(ETextJustify::Center)
+					]
+
+					// Resume Button
+					+ SVerticalBox::Slot()
+					.Padding(ButtonPadding)
+					[
+						SNew(SButton)
 						[
 							SNew(STextBlock)
-								.Font(TitleTextStyle)
-								.Text(TitleText)
-								.Justification(ETextJustify::Center)
+							.Font(ButtonTextStyle)
+							.Text(ResumeText)
+							.Justification(ETextJustify::Center)
 						]
+					]
 
-						// Resume Button
-						+ SVerticalBox::Slot()
-						.Padding(ButtonPadding)
+					// Settings Button
+					+ SVerticalBox::Slot()
+					.Padding(ButtonPadding)
+					[
+						SNew(SButton)
 						[
-							SNew(SButton)
-								[
-									SNew(STextBlock)
-										.Font(ButtonTextStyle)
-										.Text(ResumeText)
-										.Justification(ETextJustify::Center)
-								]
+							SNew(STextBlock)
+							.Font(ButtonTextStyle)
+							.Text(SettingsText)
+							.Justification(ETextJustify::Center)
 						]
+					]
 
-						// Settings Button
-						+ SVerticalBox::Slot()
-						.Padding(ButtonPadding)
+					// Quit Button
+					+ SVerticalBox::Slot()
+					.Padding(ButtonPadding)
+					[
+						SNew(SButton)
+						.OnClicked(this, &SSettingWidget::OnQuitClicked)
 						[
-							SNew(SButton)
-								[
-									SNew(STextBlock)
-										.Font(ButtonTextStyle)
-										.Text(SettingsText)
-										.Justification(ETextJustify::Center)
-								]
+							SNew(STextBlock)
+							.Font(ButtonTextStyle)
+							.Text(QuitText)
+							.Justification(ETextJustify::Center)
 						]
-
-						// Quit Button
-						+ SVerticalBox::Slot()
-						.Padding(ButtonPadding)
-						[
-							SNew(SButton)
-								[
-									SNew(STextBlock)
-										.Font(ButtonTextStyle)
-										.Text(QuitText)
-										.Justification(ETextJustify::Center)
-								]
-						]
+					]
 				]
-		]
-};
+		];
+}
 
 FReply SSettingWidget::OnResumeClicked() const
 {
@@ -101,7 +102,7 @@ FReply SSettingWidget::OnResumeClicked() const
 
 FReply SSettingWidget::OnSettingsClicked() const
 {
-	return FReply();
+	return FReply::Handled();
 }
 
 FReply SSettingWidget::OnQuitClicked() const
@@ -111,7 +112,6 @@ FReply SSettingWidget::OnQuitClicked() const
 			PC->ConsoleCommand("quit");
 		}
 	}
-	return FReply();
+	return FReply::Handled();
 }
-
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

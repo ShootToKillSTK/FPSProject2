@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
+#include "Components/TextBlock.h"
 #include "ButtonWidget.generated.h"
 
 /**
@@ -14,4 +16,19 @@ class FPSPROJECT2_API UButtonWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(meta = (BindWidget))
+	UButton* Button;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* ButtonText;
+
+	UFUNCTION()
+	void SetText(int value);
+
+	UFUNCTION()
+	void OnButtonClick();
+
+private:
+	int num = -1;
 };

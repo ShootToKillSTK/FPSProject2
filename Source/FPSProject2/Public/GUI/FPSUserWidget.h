@@ -7,6 +7,7 @@
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
+#include "GUI/ButtonWidget.h"
 #include "FPSUserWidget.generated.h"
 
 /**
@@ -18,14 +19,19 @@ class FPSPROJECT2_API UFPSUserWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	virtual void NativeConstruct() override;
+
 	UPROPERTY(meta = (BindWidget))
 	UProgressBar* HealthBar;
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* ScireText;
+	UTextBlock* ScoreText;
 
 	UPROPERTY(meta = (BindWidget))
 	UVerticalBox* ButtonContainer;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UButtonWidget> ButtonWidgetPrefab;
 
 	UFUNCTION()
 	void SetHealthBar(float percentage);
@@ -34,6 +40,5 @@ public:
 	void SetScoreText(int newScore);
 
 private:
-	int ScoreText;
-
+	int UIScore = 0;
 };
