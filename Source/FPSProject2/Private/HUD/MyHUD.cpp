@@ -7,7 +7,7 @@ void AMyHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ShowMenu(gameMenuWidget);
+	//ShowMenu(gameMenuWidget);
 	//ShowSettingMenu();
 }
 
