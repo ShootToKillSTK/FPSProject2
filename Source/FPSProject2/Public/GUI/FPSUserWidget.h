@@ -8,6 +8,7 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "GUI/ButtonWidget.h"
+#include "Kismet/GameplayStatics.h" 
 #include "FPSUserWidget.generated.h"
 
 /**
@@ -38,6 +39,9 @@ public:
 
 	UFUNCTION()
 	void SetScoreText(int newScore);
+
+	UFUNCTION()
+	void ResetLevel();
 
 private:
 	int UIScore = 0;

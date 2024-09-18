@@ -84,7 +84,7 @@ void AFPSCharacter::MoveRightNotTheSameAsInput(float value)
 	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
 	AddMovementInput(Direction, value);
 
-	UE_LOG(LogTemp, Warning, TEXT("Right: %f"), value);
+	//UE_LOG(LogTemp, Warning, TEXT("Right: %f"), value);
 }
 
 void AFPSCharacter::StartJump()
@@ -137,5 +137,21 @@ void AFPSCharacter::Fire()
 
 	FVector LaunchDirection = MuzzleRotation.Vector();
 	Projectile->FireInDirection(LaunchDirection);
+}
+
+float AFPSCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Player Take Damage"));
+	float FinalDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	AMyHUD* HUD = UGameplayStatics::GetPlayerController(this, 0)->GetHUD<AMyHUD>();
+	if (HUD) {
+		Health -= DamageAmount;
+		float HealthPercent = Health / MaxHealth;
+
+		HUD->gameWidgetContainer->SetHealthBar(HealthPercent);
+	}
+
+	return FinalDamage;
 }
 
