@@ -34,7 +34,7 @@ public:
 	UStaticMeshComponent* CoinMeshComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Points = 1;
+	float Points = 20;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationRate = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
