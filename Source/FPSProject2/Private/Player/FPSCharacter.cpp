@@ -141,17 +141,28 @@ void AFPSCharacter::Fire()
 
 float AFPSCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Player Take Damage"));
+	// Call parent function
 	float FinalDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
-	AMyHUD* HUD = UGameplayStatics::GetPlayerController(this, 0)->GetHUD<AMyHUD>();
-	if (HUD) {
-		Health -= DamageAmount;
-		float HealthPercent = Health / MaxHealth;
+	// Reduce health
+	Health -= DamageAmount;
+	Health = FMath::Clamp(Health, 0.0f, MaxHealth);
 
-		HUD->gameWidgetContainer->SetHealthBar(HealthPercent);
+	// Log for debugging
+	UE_LOG(LogTemp, Warning, TEXT("Player Took Damage: %f. Health: %f"), DamageAmount, Health);
+
+	// Update HUD
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(this, 0);
+	if (PlayerController)
+	{
+		AMyHUD* HUD = PlayerController->GetHUD<AMyHUD>();
+		if (HUD)
+		{
+			float HealthPercent = Health / MaxHealth;
+			HUD->gameWidgetContainer->SetHealthBar(HealthPercent);
+		}
 	}
 
+	// Return the amount of damage taken
 	return FinalDamage;
 }
-
